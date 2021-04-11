@@ -22,7 +22,7 @@ public class IODatabase {
         rootNode.getReference("users").child(user_uid).setValue(user);
     }
     /*
-    public void addReserToDB(Reservation newRes){
+    public void addFoodToDB(FoodType){
         rootNode.getReference("reservations").setValue(newRes);
     }
 */

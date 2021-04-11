@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">EpicCO2App</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="login">login</string>
+    <string name="not_signed_in_yet_sign_in_here">Not signed in yet? Sign in here</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="already_have_an_account_login_here">Already have an account? Sign in here</string>
+    <string name="signin">Sign in</string>
+</resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "218583934601",
+    "project_id": "oliohtco2",
+    "storage_bucket": "oliohtco2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218583934601:android:28ff0ca66f7fb30030c858",
+        "android_client_info": {
+          "package_name": "com.example.epicco2app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218583934601-hsh10lf6upoj2l3f5bb2bde94pklohmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCpHugIsuVW6qWMOatzh1ZjeyfgBqVIA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218583934601-hsh10lf6upoj2l3f5bb2bde94pklohmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,30 +16,38 @@ import java.util.ArrayList;
 
 public class APICaller {
 
-    private static APICaller caller = new APICaller();
-    private RequestQueue requestQueue;
+    public static final String QUERY_FOR_FOOD_CALC = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/FoodCalculator?";
+    private static APICaller caller;
+    public RequestQueue requestQueue;
+    private static Context ctx;
 
 
 
-    APICaller(){
+    private APICaller(Context context){
+        ctx = context;
+        requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
     }
 
 
-    public static APICaller getInstance(){
+    public static synchronized APICaller getInstance(Context context){
+        if (caller == null){
+            caller = new APICaller(context);
+        }
         return caller;
 
     }
 
-    public void call(Context ctx) {
-        RequestQueue queue = Volley.newRequestQueue(ctx);
-        String url = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/FoodCalculator?query.diet=omnivore&query.beefLevel=10";
+
+
+    public void call() {
+        String url = QUERY_FOR_FOOD_CALC +"query.diet=omnivore&query.beefLevel=10";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> System.out.println("Response: "+ response.toString()),
                 error -> System.out.println("Error"));
 
 
-        queue.add(request);
+        requestQueue.add(request);
 
     }
 

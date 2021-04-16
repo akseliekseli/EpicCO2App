@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class HomeActivity extends AppCompatActivity {
-    //Morjesta pöytään
+
+    APICaller apiCaller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        apiCaller = APICaller.getInstance(this);
+        apiCaller.call();
     }
 }

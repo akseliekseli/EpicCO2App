@@ -19,4 +19,6 @@
     <string name="phone">Phone</string>
     <string name="already_have_an_account_login_here">Already have an account? Sign in here</string>
     <string name="signin">Sign in</string>
+    <string name="kuukausi_yhteenveto">Kuukausi yhteenveto</string>
+    <string name="viikko_yhteenveto">Viikko yhteenveto</string>
 </resources>

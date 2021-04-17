@@ -16,6 +16,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiCaller = APICaller.getInstance(this);
+        // Making the test parameters
         ArrayList<String> params = new ArrayList<String>();
         params.add("omnivore");
         params.add("20");

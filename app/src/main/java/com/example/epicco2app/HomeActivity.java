@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
     APICaller apiCaller;
@@ -12,6 +16,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiCaller = APICaller.getInstance(this);
-        apiCaller.call();
+        ArrayList<String> params = new ArrayList<String>();
+        params.add("omnivore");
+        params.add("20");
+        params.add("10");
+        params.add("30");
+        params.add("0");
+        params.add("40");
+        params.add("0");
+        params.add("0");
+        apiCaller.call(params);
     }
 }

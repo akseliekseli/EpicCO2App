@@ -8,26 +8,90 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="208dp"
-        android:layout_height="32dp"
+        android:layout_width="265dp"
+        android:layout_height="54dp"
         android:text="@string/kuukausi_yhteenveto"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.094"
+        tools:text="@string/kuukausi_yhteenveto" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chart1"
+        android:layout_width="415dp"
+        android:layout_height="177dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.197" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart2"
+        android:layout_width="365dp"
+        android:layout_height="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.94" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart1"
-        android:layout_width="335dp"
-        android:layout_height="152dp"
+    <RadioGroup
+        android:id="@+id/TimeGroup"
+        android:layout_width="356dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.007">
+
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:text="@string/aika"
+            android:textSize="18sp" />
+
+
+        <RadioButton
+            android:id="@+id/time1"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:text="@string/_1_kk" />
+
+        <RadioButton
+            android:id="@+id/time2"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:text="@string/_3_kk" />
+
+        <RadioButton
+            android:id="@+id/time3"
+            android:layout_width="92dp"
+            android:layout_height="match_parent"
+            android:text="@string/_12_kk" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="229dp"
+        android:layout_height="45dp"
+        android:text="@string/painon_muutos"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.708" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

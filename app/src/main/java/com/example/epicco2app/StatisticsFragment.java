@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -26,7 +27,8 @@ public class StatisticsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        barChart = (BarChart) getView().findViewById(R.id.chart1);
+        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.fragment_statistics, container, false);
+        barChart = (BarChart) layout.findViewById(R.id.chart1);
 
         // Testattu lisämällä nyt vaan käsin arvoja listaa
         barEntriesMonths = new ArrayList<>();
@@ -38,7 +40,7 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths.add(new BarEntry(6, 50));
         BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus");
         // Näillä ei nyt josatin syystä toimi selvitän tätä vielä
-        ArrayList<String> monthList = new ArrayList<>();
+        /*ArrayList<String> monthList = new ArrayList<>();
         monthList.add("Tammikuu");
         monthList.add("Helmikuu");
         monthList.add("Maaliskuu");
@@ -50,7 +52,7 @@ public class StatisticsFragment extends Fragment {
         monthList.add("Syyskuu");
         monthList.add("Lokakuu");
         monthList.add("Marraskuu");
-        monthList.add("Joulukuu");
+        monthList.add("Joulukuu");*/
 
         BarData theData = new BarData(barDataSet);
 
@@ -65,10 +67,11 @@ public class StatisticsFragment extends Fragment {
         BarDataSet barDataSet2 = new BarDataSet(barEntriesWeeks, "Co2 kulutus");*/
 
         barChart.setData(theData);
+
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
 
-        return inflater.inflate(R.layout.fragment_statistics, container, false);
+        return layout;
     }
 }

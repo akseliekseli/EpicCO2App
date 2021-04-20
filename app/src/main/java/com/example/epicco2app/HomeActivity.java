@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 FoodLogObject foodLogObject = null;
                 try {
                     foodLogObject = new FoodLogObject(response.getInt("Total"));
-                    io.addFoodToDB(userID, foodLogObject);
+                    //io.addFoodToDB(userID, foodLogObject);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

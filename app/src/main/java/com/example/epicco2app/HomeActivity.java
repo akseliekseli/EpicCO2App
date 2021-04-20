@@ -1,45 +1,41 @@
 package com.example.epicco2app;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import org.json.JSONObject;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private DrawerLayout drawer;
 
-public class HomeActivity extends AppCompatActivity {
-
-    APICaller apiCaller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // This is how you make a GET request for the API
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar); //Sets our own toolbar as actionbar
 
-        // API singleton object
-        apiCaller = APICaller.getInstance(this);
-        // Making the test parameters
-        ArrayList<String> params = new ArrayList<String>();
-        params.add("omnivore");
-        params.add("20");
-        params.add("10");
-        params.add("30");
-        params.add("0");
-        params.add("40");
-        params.add("0");
-        params.add("0");
-        apiCaller.call(params, new APICaller.VolleyCallback() {
-            // onSuccess method is called after the request is complete
-            @Override
-            public void onSuccess(String response) {
-                System.out.println(response);
-            }
-        });
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        //some android magic
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         //If for example the user closes the app and reopens it, this part won't run.
         if (savedInstanceState == null) {
             //Automatically opens food fragment when logged in
@@ -65,12 +61,19 @@ public class HomeActivity extends AppCompatActivity {
                         new SettingsFragment()).commit();
                 break;
             case R.id.nav_logout:
-                FirebaseAuth.getInstance().signOut();
-                Intent toMain = new Intent(HomeActivity.this , LoginActivity.class);
-                startActivity(toMain);
+                Toast.makeText(this, "Kirjaudu ulos", Toast.LENGTH_SHORT).show();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // If user presses back button and drawer is open, drawer will close
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else
+            super.onBackPressed();
     }
 }

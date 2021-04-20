@@ -15,6 +15,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // This is how you make a GET request for the API
+
+        // API singleton object
         apiCaller = APICaller.getInstance(this);
         // Making the test parameters
         ArrayList<String> params = new ArrayList<String>();
@@ -26,6 +30,12 @@ public class HomeActivity extends AppCompatActivity {
         params.add("40");
         params.add("0");
         params.add("0");
-        apiCaller.call(params);
+        apiCaller.call(params, new APICaller.VolleyCallback() {
+            // onSuccess method is called after the request is complete
+            @Override
+            public void onSuccess(String response) {
+                System.out.println(response);
+            }
+        });
     }
 }

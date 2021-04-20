@@ -5,9 +5,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class User {
     private String name, phone, email;
 
-    public User(){
-
-    }
 
     public User (String name,String phone, String email){
         this.email = email;

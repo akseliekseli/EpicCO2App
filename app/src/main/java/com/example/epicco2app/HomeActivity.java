@@ -12,16 +12,32 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+
+    APICaller apiCaller;
+    IODatabase io;
+    User currentUser;
+    String userID;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+        io = IODatabase.getInstance();
 
+        userID = mAuth.getCurrentUser().getUid();
+        // This is how you make a GET request for the API
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); //Sets our own toolbar as actionbar
 
@@ -36,6 +52,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // API singleton object
+        apiCaller = APICaller.getInstance(this);
+        // Making the test parameters
+        ArrayList<String> params = new ArrayList<String>();
+        params.add("omnivore");
+        params.add("20");
+        params.add("10");
+        params.add("30");
+        params.add("0");
+        params.add("40");
+        params.add("0");
+        params.add("0");
+        apiCaller.call(params, new APICaller.VolleyCallback() {
+            // onSuccess method is called after the request is complete
+            @Override
+            public void onSuccess(JSONObject response){
+                FoodLogObject foodLogObject = null;
+                try {
+                    foodLogObject = new FoodLogObject(response.getInt("Total"));
+                    io.addFoodToDB(userID, foodLogObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(response.toString());
+            }
+        });
         //If for example the user closes the app and reopens it, this part won't run.
         if (savedInstanceState == null) {
             //Automatically opens food fragment when logged in

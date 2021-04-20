@@ -53,7 +53,7 @@ public class APICaller {
 
         // Making the request and parsing it to JSON Object. Lambda expression is used for structuring the code
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> callback.onSuccess(response.toString()),
+                response -> callback.onSuccess(response),
                 error -> System.out.println("Error"));
 
         // Adding the request to queue
@@ -62,7 +62,7 @@ public class APICaller {
     }
 
     public interface VolleyCallback {
-        void onSuccess(String response);
+        void onSuccess(JSONObject response);
     }
 
 }

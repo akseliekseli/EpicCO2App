@@ -11,21 +11,22 @@ public class IODatabase {
 
     private static IODatabase io = new IODatabase();
 
-    public IODatabase(){
+    public IODatabase() {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("users");
     }
-    public static IODatabase getInstance(){
+
+    public static IODatabase getInstance() {
         return io;
     }
-    public void createUser (String user_uid, User user){
-        rootNode.getReference("users").child(user_uid).setValue(user);
+
+    public void createUser(String userID, User user) {
+        rootNode.getReference("users").child(userID).setValue(user);
     }
-    /*
-    public void addFoodToDB(FoodType){
-        rootNode.getReference("reservations").setValue(newRes);
+
+    public void addFoodToDB(String userID, FoodLogObject logObject) {
+        rootNode.getReference("users").child(userID).child("Logs").setValue(logObject);
     }
-*/
 
 
 

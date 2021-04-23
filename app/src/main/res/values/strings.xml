@@ -26,4 +26,10 @@
     <string name="_12_kk">12 kk</string>
     <string name="_3_kk">3 kk</string>
     <string name="painon_muutos">Painon muutos</string>
+    <string name="k_ytt_j_n_tiedot">Käyttäjän tiedot</string>
+    <string name="painoindeksi">Painoindeksi</string>
+    <string name="pituus">Pituus</string>
+    <string name="paino">Paino</string>
+    <string name="p_ivit">Päivitä</string>
+    <string name="textview">TextView</string>
 </resources>

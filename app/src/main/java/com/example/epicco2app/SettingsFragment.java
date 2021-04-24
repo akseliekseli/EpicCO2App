@@ -4,21 +4,51 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 public class SettingsFragment extends Fragment {
+    private TextView bmiText,infoText;
+    private EditText heigthIn, weigthIn;
+    private Button button;
+    private float bmi;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.fragment_settings, container, false);
+        heigthIn = (EditText) layout.findViewById(R.id.heigthIn);
+        weigthIn = (EditText) layout.findViewById(R.id.weigthIn);
+        bmiText  = (TextView) layout.findViewById(R.id.bmiOut);
+        infoText = (TextView) layout.findViewById(R.id.textView2);
+        button = (Button) layout.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upDate();
+            }
+        });
+        return layout;
     }
 
+    public void upDate(){
+        //Bmi = (1.3*massa)/(pituus)^^ 2.5
+        bmiText.setText("bmi");
+        infoText.setText("Painoindeksi on ... ");
+
+    }
     public void logOut(){
         FirebaseAuth.getInstance().signOut();
     }

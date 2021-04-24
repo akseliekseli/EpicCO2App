@@ -6,15 +6,18 @@ public class User {
     private String name, phone, email;
 
 
+
     public User (String name,String phone, String email){
         this.email = email;
         this.name = name;
         this.phone = phone;
 
+
     }
     public String getName(){
         return name;
     }
+
     public String getPhone(){
         return phone;
     }
@@ -22,6 +25,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public void updateName(String name){
         this.name=name;
     }

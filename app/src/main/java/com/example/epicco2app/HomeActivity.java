@@ -8,10 +8,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.epicco2app.ui.SignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -64,21 +67,34 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         params.add("40");
         params.add("0");
         params.add("0");
+
         apiCaller.call(params, new APICaller.VolleyCallback() {
             // onSuccess method is called after the request is complete
             @Override
             public void onSuccess(JSONObject response){
                 FoodLogObject foodLogObject = null;
                 try {
-                    foodLogObject = new FoodLogObject(response.getInt("Total"));
-                    //io.addFoodToDB(userID, foodLogObject);
+                    foodLogObject = new FoodLogObject();
+                    foodLogObject.setTotal(response.getLong("Total"));
+                    io.addFoodToDB(userID, foodLogObject);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println(response.toString());
             }
         });
+
+        // Not quite working
+        io.getUserFoodData(userID, new IODatabase.FirebaseCallback() {
+            @Override
+            public void onSuccess(ArrayList<FoodLogObject> foodList) {
+                Log.v("Async", "OnSuccesMain");
+                foodList.get(1).printTime();
+            }
+        });
+        System.out.println("TEST");
+
+
         //If for example the user closes the app and reopens it, this part won't run.
         if (savedInstanceState == null) {
             //Automatically opens food fragment when logged in
@@ -86,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     new FoodFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_food);
         }
+
     }
 
     @Override
@@ -104,7 +121,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         new SettingsFragment()).commit();
                 break;
             case R.id.nav_logout:
+                
                 Toast.makeText(this, "Kirjaudu ulos", Toast.LENGTH_SHORT).show();
+                Intent toLogin = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(toLogin);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -77,22 +77,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     foodLogObject = new FoodLogObject();
                     foodLogObject.setTotal(response.getLong("Total"));
                     io.addFoodToDB(userID, foodLogObject);
+                    Log.v("Async", "API call successful");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
         });
-
+        WeightLogObject weightLogObject = new WeightLogObject();
+        weightLogObject.setWeight(80);
+        io.addWeightToDB(userID, weightLogObject);
         // Not quite working
         io.getUserFoodData(userID, new IODatabase.FirebaseCallback() {
             @Override
             public void onSuccess(ArrayList<FoodLogObject> foodList) {
-                Log.v("Async", "OnSuccesMain");
-                foodList.get(1).printTime();
+                Log.v("Async", "FoodData read successful");
+
             }
         });
-        System.out.println("TEST");
+
+        io.getUserWeight(userID, new IODatabase.WeightCallback() {
+            @Override
+            public void onSuccess(ArrayList<WeightLogObject> weight) {
+                Log.v("Async", "WeightData read successful");
+            }
+        });
 
 
         //If for example the user closes the app and reopens it, this part won't run.

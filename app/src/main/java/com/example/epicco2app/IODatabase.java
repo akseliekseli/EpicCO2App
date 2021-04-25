@@ -43,7 +43,7 @@ public class IODatabase {
     }
 
     public void addWeightToDB(String userID, WeightLogObject weightLogObject){
-        rootNode.getReference("USERS").child(userID).child("WEIGHTLOGS").setValue(weightLogObject);
+        rootNode.getReference("USERS").child(userID).child("WEIGHTLOGS").push().setValue(weightLogObject);
     }
 
     public void getUserFoodData(String userID, final FirebaseCallback callback) {
@@ -52,21 +52,12 @@ public class IODatabase {
         rootNode.getReference("USERS").child(userID).child("FOODLOGS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.v("Async", "OnDataCHange");
+                Log.v("Async", "OnDataChange");
                 ArrayList<FoodLogObject> foodList = new ArrayList<FoodLogObject>();
-                System.out.println(dataSnapshot.getChildrenCount());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     FoodLogObject logObject;
-                    System.out.println(snapshot.getValue().getClass());
-                    /*
 
-                    Date date = new Date((Long) snapshot.child("logTime").child("time").getValue());
-                    logObject.setLogTime(date);
-
-                    String totnum = snapshot.child("total").getValue().toString();
-                    logObject.setTotal(new Long(totnum));
-                    */
                     logObject = snapshot.getValue(FoodLogObject.class);
                     foodList.add(logObject);
 
@@ -82,11 +73,38 @@ public class IODatabase {
             }
         });
 
+
+    }
+    public void getUserWeight(String userID, final WeightCallback callback){
+        rootNode.getReference("USERS").child(userID).child("WEIGHTLOGS").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.v("Async", "OnDataChange");
+                ArrayList<WeightLogObject> weightList = new ArrayList<WeightLogObject>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    WeightLogObject weight;
+
+                    weight = snapshot.getValue(WeightLogObject.class);
+
+                    weightList.add(weight);
+                }
+                callback.onSuccess(weightList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public interface FirebaseCallback {
         void onSuccess(ArrayList<FoodLogObject> foodList);
 
+    }
+
+    public interface WeightCallback{
+        void onSuccess(ArrayList<WeightLogObject> weight);
     }
 
 }

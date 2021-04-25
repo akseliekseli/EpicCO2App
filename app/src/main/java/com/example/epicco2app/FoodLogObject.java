@@ -13,7 +13,7 @@ public class FoodLogObject {
         this.logTime = new DateAndTime();
         logTime.setDay(time.getDay());
         logTime.setMonth(time.getMonth());
-        logTime.setMonth(time.getYear());
+        logTime.setYear(time.getYear());
     }
 
     public void printTot() {

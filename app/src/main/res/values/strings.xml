@@ -26,4 +26,11 @@
     <string name="_12_kk">12 kk</string>
     <string name="_3_kk">3 kk</string>
     <string name="painon_muutos">Painon muutos</string>
+    
+    <string-array name="diets">
+        <item>Kaikkiruokainen</item>
+        <item>Kasvissyöjä</item>
+        <item>Vegaani</item>
+
+    </string-array>
 </resources>

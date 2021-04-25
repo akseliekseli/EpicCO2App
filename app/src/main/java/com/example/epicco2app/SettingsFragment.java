@@ -17,11 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
+
 public class SettingsFragment extends Fragment {
     private TextView bmiText,infoText;
     private EditText heigthIn, weigthIn;
     private Button button;
-    private float bmi;
 
 
 
@@ -44,9 +45,26 @@ public class SettingsFragment extends Fragment {
     }
 
     public void upDate(){
-        //Bmi = (1.3*massa)/(pituus)^^ 2.5
-        bmiText.setText("bmi");
-        infoText.setText("Painoindeksi on ... ");
+        float weight = Float.parseFloat(weigthIn.getText().toString());
+        float height = Float.parseFloat(heigthIn.getText().toString());
+        height = height/100;
+        float bmi = (weight)/(height*height);
+        DecimalFormat df = new DecimalFormat("#.#");
+        String b = df.format(bmi);
+        bmiText.setText(b);
+        if (bmi < 18.0 ){
+            infoText.setText("Painoindeksin mukaan olet merkittävästi alipainoinen.");
+        }else if(18.0<=bmi && bmi <= 19.9 ){
+            infoText.setText("Painoindeksin mukaan olet lievästi alipainoinen.");
+        }else if(19.0<=bmi && bmi <= 24.9 ){
+            infoText.setText("Painoindeksin mukaan olet normaali painoinen.");
+        }else if (25.0<=bmi && bmi <= 29.9){
+            infoText.setText("Painoindeksin mukaan olet lievästi ylipainoinen.");
+        }else if(30.0<=bmi && bmi <= 34.9){
+            infoText.setText("Painoindeksin mukaan olet ylipainoinen.");
+        }else{
+            infoText.setText("Painoindeksin mukaan olet merkittävästi ylipainoinen.");
+        }
 
     }
     public void logOut(){

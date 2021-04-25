@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 FoodLogObject foodLogObject = null;
                 try {
                     foodLogObject = new FoodLogObject();
-                    foodLogObject.setTotal(response.getLong("Total"));
+                    foodLogObject.setTotal(response.getInt("Total"));
                     io.addFoodToDB(userID, foodLogObject);
                     Log.v("Async", "API call successful");
                 } catch (JSONException e) {

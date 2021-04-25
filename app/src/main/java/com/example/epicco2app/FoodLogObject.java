@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class FoodLogObject {
 
-    Long total;
+    Integer total;
     DateAndTime logTime;
     public FoodLogObject(){
         Date time = Calendar.getInstance().getTime();
@@ -22,11 +22,11 @@ public class FoodLogObject {
     public void printTime() {
         System.out.println(logTime.toString());
     }
-    public Long getTotal(){
+    public Integer getTotal(){
         return total;
     }
     public DateAndTime getLogTime() {return logTime;}
-    public void setTotal(Long tot){
+    public void setTotal(Integer tot){
         this.total = tot;
     }
     public void setLogTime(DateAndTime dataTime) {this.logTime = dataTime;}

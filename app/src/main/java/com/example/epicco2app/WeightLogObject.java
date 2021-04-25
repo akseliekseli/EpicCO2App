@@ -10,7 +10,7 @@ public class WeightLogObject {
     public WeightLogObject(){
         Date time = Calendar.getInstance().getTime();
         this.logTime = new DateAndTime();
-        logTime.setDay(time.getDay());
+        logTime.setDay(time.getDate());
         logTime.setMonth(time.getMonth());
         logTime.setYear(time.getYear());
     }

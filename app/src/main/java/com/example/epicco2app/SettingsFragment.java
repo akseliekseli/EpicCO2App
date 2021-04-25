@@ -68,6 +68,7 @@ public class SettingsFragment extends Fragment {
 
     }
     public void logOut(){
+
         FirebaseAuth.getInstance().signOut();
     }
 }

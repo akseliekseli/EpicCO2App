@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.epicco2app.ui.SignInActivity;
@@ -31,6 +32,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     User currentUser;
     String userID;
     FirebaseAuth mAuth;
+    TextView userNameText;
+    TextView userNameEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,36 +57,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        userNameText = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
+        userNameEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
+        //userNameText.setText(mAuth.getCurrentUser().getDisplayName());
+        userNameEmail.setText(mAuth.getCurrentUser().getEmail());
 
-        // API singleton object
-        apiCaller = APICaller.getInstance(this);
-        // Making the test parameters
-        ArrayList<String> params = new ArrayList<String>();
-        params.add("omnivore");
-        params.add("20");
-        params.add("10");
-        params.add("30");
-        params.add("0");
-        params.add("40");
-        params.add("0");
-        params.add("0");
 
-        apiCaller.call(params, new APICaller.VolleyCallback() {
-            // onSuccess method is called after the request is complete
-            @Override
-            public void onSuccess(JSONObject response){
-                FoodLogObject foodLogObject = null;
-                try {
-                    foodLogObject = new FoodLogObject();
-                    foodLogObject.setTotal(response.getInt("Total"));
-                    io.addFoodToDB(userID, foodLogObject);
-                    Log.v("Async", "API call successful");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
         WeightLogObject weightLogObject = new WeightLogObject();
         weightLogObject.setWeight(80);
         io.addWeightToDB(userID, weightLogObject);
@@ -111,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     new FoodFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_food);
         }
+
 
     }
 

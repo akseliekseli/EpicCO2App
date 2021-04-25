@@ -47,9 +47,17 @@ public class APICaller {
     This method is used for GET calling Ilmastodietti food calculator API
      */
     public void call(ArrayList<String> params, final VolleyCallback callback) {
-        String url = QUERY_FOR_FOOD_CALC + "?query.diet="+params.get(0)+"&query.beefLevel="+params.get(1)+"&query.fishLevel="
-                +params.get(2)+"&query.porkPoultryLevel="+params.get(3)+"&query.dairyLevel="+params.get(4)+"&query.cheeseLevel="
-                +params.get(5)+"&query.riceLevel="+params.get(6)+"&query.eggLevel="+params.get(7);
+        String url = QUERY_FOR_FOOD_CALC + "?query.diet="+params.get(0)
+                +"&query.lowCarbonPreference="+params.get(1)
+                +"&query.beefLevel="+params.get(2)
+                +"&query.fishLevel=" +params.get(3)
+                +"&query.porkPoultryLevel="+params.get(4)
+                +"&query.dairyLevel="+params.get(5)
+                +"&query.cheeseLevel=" +params.get(6)
+                +"&query.riceLevel="+params.get(7)
+                +"&query.eggLevel="+params.get(8)
+                +"&query.winterSaladLevel="+params.get(9)
+                +"&query.restaurantSpending="+params.get(10);
 
         // Making the request and parsing it to JSON Object. Lambda expression is used for structuring the code
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,

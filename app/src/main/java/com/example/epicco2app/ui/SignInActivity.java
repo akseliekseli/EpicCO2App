@@ -63,6 +63,7 @@ public class SignInActivity extends AppCompatActivity {
 
             }
             else if(!email.isEmpty() && !pwd.isEmpty()) {
+                // TÄHÄN SALASANASETIT
                 if(!pho.isEmpty() && !nam.isEmpty()){
                     mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, task -> {
                         if (!task.isSuccessful()) {

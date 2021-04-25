@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark">
+    android:background="#565C68">
 
     <TextView
         android:id="@+id/textView"
@@ -12,13 +12,14 @@
         android:layout_height="54dp"
         android:text="@string/kuukausi_yhteenveto"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#4FD4EC"
+        android:textColorLink="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.094"
+        app:layout_constraintVertical_bias="0.127"
         tools:text="@string/kuukausi_yhteenveto" />
 
     <com.github.mikephil.charting.charts.BarChart
@@ -27,10 +28,10 @@
         android:layout_height="177dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197" />
+        app:layout_constraintVertical_bias="0.296" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
@@ -86,12 +87,12 @@
         android:layout_height="45dp"
         android:text="@string/painon_muutos"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#4FD4EC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.708" />
+        app:layout_constraintVertical_bias="0.596" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

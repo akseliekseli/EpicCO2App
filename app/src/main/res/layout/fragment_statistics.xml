@@ -31,7 +31,25 @@
             android:layout_height="312dp"
             android:paddingTop="32dp"
             android:paddingBottom="32dp">
+        </com.github.mikephil.charting.charts.BarChart>
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Viikko yhteenveto"
+            android:textColor="#00288C"
+            android:textSize="24sp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+        </TextView>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart4"
+            android:layout_width="match_parent"
+            android:layout_height="312dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="16dp">
         </com.github.mikephil.charting.charts.BarChart>
 
         <TextView

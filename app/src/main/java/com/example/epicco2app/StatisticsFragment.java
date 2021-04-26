@@ -31,11 +31,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.Collections;
 
 public class StatisticsFragment extends Fragment {
-    BarChart barChart;
+    BarChart barChart ,barChart2;
     LineChart lineChart;
     PieChart pieChart;
     ArrayList<BarEntry> barEntriesMonths;
@@ -50,12 +50,12 @@ public class StatisticsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_statistics, container,false);
-        barChart = (BarChart) layout.findViewById(R.id.chart1);
-        lineChart =(LineChart) layout.findViewById(R.id.chart2);
-        pieChart = (PieChart) layout.findViewById(R.id.chart3);
-        //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
+        barChart = (BarChart) layout.findViewById(R.id.chart1);         // Month Chart
+        lineChart =(LineChart) layout.findViewById(R.id.chart2);        // Weight chart
+        pieChart = (PieChart) layout.findViewById(R.id.chart3);         // Food
+        barChart2 = (BarChart) layout.findViewById(R.id.chart4);        // Week chart
+        //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);    // Time
         io = ((HomeActivity)getActivity()).io;
-        mAuth = FirebaseAuth.getInstance();
         userID = ((HomeActivity)getActivity()).userID;
         //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
         //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
@@ -72,7 +72,7 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths.add(new BarEntry(45f,8));
         barEntriesMonths.add(new BarEntry(50f,9));
         barEntriesMonths.add(new BarEntry(150f,10));
-        barEntriesMonths.add(new BarEntry(45f,11));
+        barEntriesMonths.add(new BarEntry(45f,11));*/
 
         ArrayList<String> monthList = new ArrayList<>();
         monthList.add("Tam");
@@ -117,9 +117,9 @@ public class StatisticsFragment extends Fragment {
 
                 }
 
-                BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus");
+                BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
                 BarData theData = new BarData(monthList,barDataSet);
-                //BarData theData = new BarData(monthList,barDataSet);
+
                 barChart.setData(theData);
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
@@ -131,6 +131,7 @@ public class StatisticsFragment extends Fragment {
                 pieEntry.add(new Entry(differentTypesList.get(3),0));
 
                 PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
+
                 ArrayList foodType  = new ArrayList();
                 foodType.add("Liha");
                 foodType.add("Ravintola");
@@ -165,6 +166,7 @@ public class StatisticsFragment extends Fragment {
 
 
         BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus");
+        BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
         BarData theData = new BarData(monthList,barDataSet);
         //BarData theData = new BarData(monthList,barDataSet);
         barChart.setData(theData);
@@ -174,14 +176,13 @@ public class StatisticsFragment extends Fragment {
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
 
-        ArrayList<Entry> barEntries2 = new ArrayList<>();
-        barEntries2.add(new Entry(56, 1));
-        barEntries2.add(new Entry(57, 2));
-        barEntries2.add(new Entry(54, 3));
-        barEntries2.add(new Entry(59, 4));
-        barEntries2.add(new Entry(63, 5));
-        barEntries2.add(new Entry(60,6 ));
-        LineDataSet lineDataSet = new LineDataSet(barEntries2,"Paino");
+        ArrayList<Entry> weightEntries = new ArrayList<>();
+        weightEntries.add(new Entry(56, 0));
+        weightEntries.add(new Entry(57, 1));
+        weightEntries.add(new Entry(54, 2));
+        weightEntries.add(new Entry(59, 3));
+        weightEntries.add(new Entry(63, 4));
+        LineDataSet lineDataSet = new LineDataSet(weightEntries,"Paino");
         LineData lineData = new LineData(monthList, lineDataSet);
         lineChart.setData(lineData);
 

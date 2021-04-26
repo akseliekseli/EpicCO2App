@@ -24,8 +24,6 @@ public class SettingsFragment extends Fragment {
     private EditText heigthIn, weigthIn;
     private Button button;
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,7 +63,6 @@ public class SettingsFragment extends Fragment {
         }else{
             infoText.setText("Painoindeksin mukaan olet merkittävästi ylipainoinen.");
         }
-
     }
     public void logOut(){
         FirebaseAuth.getInstance().signOut();

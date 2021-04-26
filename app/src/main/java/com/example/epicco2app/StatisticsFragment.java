@@ -13,12 +13,15 @@ import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -28,7 +31,9 @@ import java.util.ArrayList;
 public class StatisticsFragment extends Fragment {
     BarChart barChart;
     LineChart lineChart;
+    PieChart pieChart;
     ArrayList<BarEntry> barEntriesMonths;
+
     RadioGroup selectTime;
 
     @Nullable
@@ -37,16 +42,10 @@ public class StatisticsFragment extends Fragment {
         ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.fragment_statistics, container, false);
         barChart = (BarChart) layout.findViewById(R.id.chart1);
         lineChart =(LineChart) layout.findViewById(R.id.chart2);
+        pieChart = (PieChart) layout.findViewById(R.id.chart3);
         selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
 
-        // Testattu lisämällä nyt vaan käsin arvoja listaa
         barEntriesMonths = new ArrayList<>();
-        /*barEntriesMonths.add(new BarEntry(1, 80f));
-        barEntriesMonths.add(new BarEntry(2, 200f));
-        barEntriesMonths.add(new BarEntry(3, 40f));
-        barEntriesMonths.add(new BarEntry(4, 150f));
-        barEntriesMonths.add(new BarEntry(5, 45f));
-        barEntriesMonths.add(new BarEntry(6, 50f));*/
 
         barEntriesMonths.add(new BarEntry(80f,0));
         barEntriesMonths.add(new BarEntry(200f,1));
@@ -97,6 +96,26 @@ public class StatisticsFragment extends Fragment {
         LineDataSet lineDataSet = new LineDataSet(barEntries2,"Paino");
         LineData lineData = new LineData(monthList, lineDataSet);
         lineChart.setData(lineData);
+
+        ArrayList pieEntry = new ArrayList();
+        pieEntry.add(new Entry(200,0));
+        pieEntry.add(new Entry(100,0));
+        pieEntry.add(new Entry(50,0));
+        pieEntry.add(new Entry(20,0));
+        pieEntry.add(new Entry(200,0));
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
+
+        ArrayList foodType  = new ArrayList();
+        foodType.add("Liha");
+        foodType.add("Kana");
+        foodType.add("Kasvikset");
+        foodType.add("Kananmuna");
+        foodType.add("Maitotuotteet");
+
+        PieData pieData = new PieData(foodType,pieDataSet);
+        pieChart.setData(pieData);
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         return layout;
     }

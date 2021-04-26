@@ -72,7 +72,7 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths.add(new BarEntry(45f,8));
         barEntriesMonths.add(new BarEntry(50f,9));
         barEntriesMonths.add(new BarEntry(150f,10));
-        barEntriesMonths.add(new BarEntry(45f,11));*/
+        barEntriesMonths.add(new BarEntry(45f,11));
 
         ArrayList<String> monthList = new ArrayList<>();
         monthList.add("Tam");
@@ -165,7 +165,6 @@ public class StatisticsFragment extends Fragment {
         });
 
 
-        BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus");
         BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
         BarData theData = new BarData(monthList,barDataSet);
         //BarData theData = new BarData(monthList,barDataSet);

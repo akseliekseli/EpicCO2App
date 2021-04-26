@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
@@ -38,15 +39,15 @@ public class StatisticsFragment extends Fragment {
 
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.fragment_statistics, container, false);
+        View layout = inflater.inflate(R.layout.fragment_statistics, container,false);
         barChart = (BarChart) layout.findViewById(R.id.chart1);
         lineChart =(LineChart) layout.findViewById(R.id.chart2);
         pieChart = (PieChart) layout.findViewById(R.id.chart3);
-        selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
+        //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
 
         barEntriesMonths = new ArrayList<>();
-
         barEntriesMonths.add(new BarEntry(80f,0));
         barEntriesMonths.add(new BarEntry(200f,1));
         barEntriesMonths.add(new BarEntry(150f,2));
@@ -59,7 +60,6 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths.add(new BarEntry(50f,9));
         barEntriesMonths.add(new BarEntry(150f,10));
         barEntriesMonths.add(new BarEntry(45f,11));
-
 
         ArrayList<String> monthList = new ArrayList<>();
         monthList.add("Tam");
@@ -107,7 +107,7 @@ public class StatisticsFragment extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
 
         ArrayList foodType  = new ArrayList();
-        foodType.add("Liha");
+        foodType.add("Nauta ja lammas");
         foodType.add("Kana");
         foodType.add("Kasvikset");
         foodType.add("Kananmuna");

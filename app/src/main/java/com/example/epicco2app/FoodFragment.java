@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class FoodFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    private String selection;
     private String diet;
     private String lowCarbon;
     private TextInputLayout textInputBeef;
@@ -134,7 +135,19 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
     // Spinner onItemSelected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        diet = parent.getItemAtPosition(position).toString();
+        selection = parent.getItemAtPosition(position).toString();
+        switch (selection){
+            case "Kaikkiruokainen":
+                diet = "omnivore";
+                break;
+            case "Kasvissyöjä":
+                diet = "vegetarian";
+                break;
+            case "Vegaani":
+                diet = "vegan";
+                break;
+        }
+
     }
 
     @Override

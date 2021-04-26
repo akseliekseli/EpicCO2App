@@ -2,9 +2,11 @@ package com.example.epicco2app;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
@@ -45,7 +47,7 @@ public class StatisticsFragment extends Fragment {
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.fragment_statistics, container, false);
+        View layout = inflater.inflate(R.layout.fragment_statistics, container,false);
         barChart = (BarChart) layout.findViewById(R.id.chart1);
         lineChart =(LineChart) layout.findViewById(R.id.chart2);
         pieChart = (PieChart) layout.findViewById(R.id.chart3);
@@ -53,6 +55,7 @@ public class StatisticsFragment extends Fragment {
         io = IODatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
+        //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
         //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
 
         barEntriesMonths = new ArrayList<>();
@@ -68,7 +71,6 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths.add(new BarEntry(50f,9));
         barEntriesMonths.add(new BarEntry(150f,10));
         barEntriesMonths.add(new BarEntry(45f,11));
-
 
         ArrayList<String> monthList = new ArrayList<>();
         monthList.add("Tam");

@@ -1,6 +1,7 @@
 package com.example.epicco2app;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -61,8 +62,14 @@ public class APICaller {
 
         // Making the request and parsing it to JSON Object. Lambda expression is used for structuring the code
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> callback.onSuccess(response),
-                error -> System.out.println("Error"));
+                response -> {
+                    try {
+                        callback.onSuccess(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("API", "Error getting data from the API"));
 
         // Adding the request to queue
         requestQueue.add(request);
@@ -70,7 +77,7 @@ public class APICaller {
     }
 
     public interface VolleyCallback {
-        void onSuccess(JSONObject response);
+        void onSuccess(JSONObject response) throws JSONException;
     }
 
 }

@@ -147,17 +147,13 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                 apiCaller.call(params, new APICaller.VolleyCallback() {
                     // onSuccess method is called after the request is complete
                     @Override
-                    public void onSuccess(JSONObject response){
+                    public void onSuccess(JSONObject response) throws JSONException {
                         FoodLogObject foodLogObject = null;
-                        try {
-                            foodLogObject = new FoodLogObject();
-                            foodLogObject.setTotal(response.getInt("Total"));
-                            io.addFoodToDB(userID, foodLogObject);
-                            Log.v("Async", "API call successful");
-                            Toast.makeText(FoodFragment.this.getContext(), "Kirjauksesi onnistui.", Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        foodLogObject = new FoodLogObject();
+                        foodLogObject.setFromJSON(response);
+                        io.addFoodToDB(userID, foodLogObject);
+                        Log.v("Async", "API call successful");
+                        Toast.makeText(FoodFragment.this.getContext(), "Kirjauksesi onnistui.", Toast.LENGTH_SHORT).show();
 
                     }
                 });

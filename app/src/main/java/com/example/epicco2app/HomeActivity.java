@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //userNameText.setText(mAuth.getCurrentUser().getDisplayName());
         userNameEmail.setText(mAuth.getCurrentUser().getEmail());
 
-
+        /*
         WeightLogObject weightLogObject = new WeightLogObject();
         weightLogObject.setWeight(80);
         io.addWeightToDB(userID, weightLogObject);
@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 Log.v("Async", "WeightData read successful");
             }
         });
-
+        */
 
         //If for example the user closes the app and reopens it, this part won't run.
         if (savedInstanceState == null) {

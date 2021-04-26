@@ -29,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class StatisticsFragment extends Fragment {
     BarChart barChart;
@@ -44,6 +43,7 @@ public class StatisticsFragment extends Fragment {
 
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.fragment_statistics, container, false);
         barChart = (BarChart) layout.findViewById(R.id.chart1);
@@ -53,7 +53,21 @@ public class StatisticsFragment extends Fragment {
         io = IODatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
+        //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);
 
+        barEntriesMonths = new ArrayList<>();
+        barEntriesMonths.add(new BarEntry(80f,0));
+        barEntriesMonths.add(new BarEntry(200f,1));
+        barEntriesMonths.add(new BarEntry(150f,2));
+        barEntriesMonths.add(new BarEntry(45f,3));
+        barEntriesMonths.add(new BarEntry(50f,4));
+        barEntriesMonths.add(new BarEntry(80f,5));
+        barEntriesMonths.add(new BarEntry(200f,6));
+        barEntriesMonths.add(new BarEntry(150f,7));
+        barEntriesMonths.add(new BarEntry(45f,8));
+        barEntriesMonths.add(new BarEntry(50f,9));
+        barEntriesMonths.add(new BarEntry(150f,10));
+        barEntriesMonths.add(new BarEntry(45f,11));
 
 
         ArrayList<String> monthList = new ArrayList<>();
@@ -146,6 +160,7 @@ public class StatisticsFragment extends Fragment {
         pieEntry.add(new Entry(200,0));
         pieEntry.add(new Entry(100,0));
         pieEntry.add(new Entry(50,0));
+        pieEntry.add(new Entry(20,0));
         pieEntry.add(new Entry(200,0));
 
         PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");

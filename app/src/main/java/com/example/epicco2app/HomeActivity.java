@@ -61,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userNameEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
         //userNameText.setText(mAuth.getCurrentUser().getDisplayName());
         userNameEmail.setText(mAuth.getCurrentUser().getEmail());
+        
 
         /*
         WeightLogObject weightLogObject = new WeightLogObject();
@@ -110,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         new SettingsFragment()).commit();
                 break;
             case R.id.nav_logout:
-                
+                logOut();
                 Toast.makeText(this, "Kirjaudu ulos", Toast.LENGTH_SHORT).show();
                 Intent toLogin = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(toLogin);
@@ -127,6 +128,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else
             super.onBackPressed();
+    }
+
+    public void logOut(){
+
+        FirebaseAuth.getInstance().signOut();
     }
 
 }

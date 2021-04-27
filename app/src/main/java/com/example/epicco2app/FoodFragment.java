@@ -94,7 +94,10 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
         confirm_Button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("TESTI");
+                // Tests if all inputs are correct
+                if (!validateBeefInput()| !validateFishInput() | !validatePorkInput() | !validateDairyInput() | !validateCheeseInput() | !validateRiceInput() | !validatEggInput() | !validateWinterSaladInput() | !validateRestaurantInput()){
+                    return;
+                }
 
                 if (checkBox.isChecked()) {
                     lowCarbon = "true";
@@ -102,29 +105,10 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                     lowCarbon = "false";
                 }
 
-                // Checks if textInput is empty. If is empty saves value as 0. If not saves value as double.
-                if (textInputBeef.getEditText().getText().toString().equals("")){ doubleBeef = 0;
-                } else { doubleBeef = Double.parseDouble(textInputBeef.getEditText().getText().toString()); }
-                if (textInputFish.getEditText().getText().toString().equals("")){ doubleFish = 0;
-                } else { doubleFish = Double.parseDouble(textInputFish.getEditText().getText().toString()); }
-                if (textInputPork.getEditText().getText().toString().equals("")) { doublePork = 0;
-                } else { doublePork = Double.parseDouble(textInputPork.getEditText().getText().toString()); }
-                if  (textInputDairy.getEditText().getText().toString().equals("")){ doubleDairy = 0;
-                } else { doubleDairy = Double.parseDouble(textInputDairy.getEditText().getText().toString()); }
-                if (textInputCheese.getEditText().getText().toString().equals("")) { doubleCheese = 0;
-                } else { doubleCheese = Double.parseDouble(textInputCheese.getEditText().getText().toString()); }
-                if (textInputRice.getEditText().getText().toString().equals("")) { doubleRice = 0;
-                } else { doubleRice = Double.parseDouble(textInputRice.getEditText().getText().toString()); }
-                if (textInputEgg.getEditText().getText().toString().equals("")) { doubleEgg = 0;
-                } else { doubleEgg = Double.parseDouble(textInputEgg.getEditText().getText().toString()); }
-                if (textInputWinterSalad.getEditText().getText().toString().equals("")) { doubleWinterSalad = 0;
-                } else { doubleWinterSalad = Double.parseDouble(textInputWinterSalad.getEditText().getText().toString()); }
-                if (textInputRestaurant.getEditText().getText().toString().equals("")) { doubleRestaurant = 0;
-                } else { doubleRestaurant = Double.parseDouble(textInputRestaurant.getEditText().getText().toString()); }
 
                 // Arraylist with all parameters
                 ArrayList<String> params = new ArrayList<String>();
-                params.add("omnivore");
+                params.add(diet);
                 params.add(lowCarbon);
                 //Percentage of consumption compared to Finnish average, rounded and converted to string
                 params.add(String.valueOf(Math.round((doubleBeef / (400.0)) * 100)));
@@ -135,7 +119,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                 params.add(String.valueOf(Math.round((doubleRice / (90.0)) * 100)));
                 params.add(String.valueOf(Math.round((doubleEgg / (3.0)) * 100)));
                 params.add(String.valueOf(Math.round((doubleWinterSalad / (1400.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleRestaurant / (71.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleRestaurant * 4))));
 
                 for(int i = 0; i < params.size(); i++) {
                     System.out.print(params.get(i)+" ");
@@ -188,4 +172,124 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    // Tests to see if inputs are correct for the API
+    private boolean validateBeefInput() {
+        if (textInputBeef.getEditText().getText().toString().equals("")){ doubleBeef = 0;
+        } else { doubleBeef = Double.parseDouble(textInputBeef.getEditText().getText().toString()); }
+
+        if (0 > doubleBeef || doubleBeef > 800) {
+            textInputBeef.setError("Ei voi olla alle 0 tai yli 800");
+            return false;
+        } else {
+            textInputBeef.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateFishInput() {
+        if (textInputFish.getEditText().getText().toString().equals("")){ doubleFish = 0;
+        } else { doubleFish = Double.parseDouble(textInputFish.getEditText().getText().toString()); }
+
+        if (0 > doubleFish || doubleFish > 1200) {
+            textInputFish.setError("Ei voi olla alle 0 tai yli 1200");
+            return false;
+        } else {
+            textInputFish.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validatePorkInput() {
+        if (textInputPork.getEditText().getText().toString().equals("")) { doublePork = 0;
+        } else { doublePork = Double.parseDouble(textInputPork.getEditText().getText().toString()); }
+
+        if (0 > doublePork || doublePork > 2000) {
+            textInputPork.setError("Ei voi olla alle 0 tai yli 2000");
+            return false;
+        } else {
+            textInputPork.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateDairyInput() {
+        if  (textInputDairy.getEditText().getText().toString().equals("")){ doubleDairy = 0;
+        } else { doubleDairy = Double.parseDouble(textInputDairy.getEditText().getText().toString()); }
+
+        if (0 > doubleDairy || doubleDairy > 7600) {
+            textInputDairy.setError("Ei voi olla alle 0 tai yli 7600");
+            return false;
+        } else {
+            textInputDairy.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateCheeseInput() {
+        if (textInputCheese.getEditText().getText().toString().equals("")) { doubleCheese = 0;
+        } else { doubleCheese = Double.parseDouble(textInputCheese.getEditText().getText().toString()); }
+
+        if (0 > doubleCheese || doubleCheese > 600) {
+            textInputCheese.setError("Ei voi olla alle 0 tai yli 600");
+            return false;
+        } else {
+            textInputCheese.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateRiceInput() {
+        if (textInputRice.getEditText().getText().toString().equals("")) { doubleRice = 0;
+        } else { doubleRice = Double.parseDouble(textInputRice.getEditText().getText().toString());}
+
+            if (0 > doubleRice || doubleRice > 180) {
+            textInputRice.setError("Ei voi olla alle 0 tai yli 180");
+            return false;
+        } else {
+            textInputRice.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validatEggInput() {
+        if (textInputEgg.getEditText().getText().toString().equals("")) { doubleEgg = 0;
+        } else { doubleEgg = Double.parseDouble(textInputEgg.getEditText().getText().toString()); }
+
+        if (0 > doubleEgg || doubleEgg > 33) {
+            textInputEgg.setError("Ei voi olla alle 0 tai yli 33");
+            return false;
+        } else {
+            textInputEgg.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateWinterSaladInput() {
+        if (textInputWinterSalad.getEditText().getText().toString().equals("")) { doubleWinterSalad = 0;
+        } else { doubleWinterSalad = Double.parseDouble(textInputWinterSalad.getEditText().getText().toString()); }
+
+        if (0 > doubleWinterSalad || doubleWinterSalad > 2800) {
+            textInputWinterSalad.setError("Ei voi olla alle 0 tai yli 2800");
+            return false;
+        } else {
+            textInputWinterSalad.setError(null);
+            return true;
+        }
+
+    }
+    private boolean validateRestaurantInput() {
+        if (textInputRestaurant.getEditText().getText().toString().equals("")) { doubleRestaurant = 0;
+        } else { doubleRestaurant = Double.parseDouble(textInputRestaurant.getEditText().getText().toString()); }
+
+        if (0 > doubleRestaurant || doubleRestaurant > 200) {
+            textInputRestaurant.setError("Ei voi olla alle 0 tai yli 200");
+            return false;
+        } else {
+            textInputRestaurant.setError(null);
+            return true;
+        }
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.epicco2app;
 
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Log;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class StatisticsFragment extends Fragment {
-    BarChart barChart ,barChart2;
+    BarChart barChart ,weekChart;
     LineChart lineChart;
     PieChart pieChart;
     ArrayList<BarEntry> barEntriesMonths;
@@ -53,7 +54,7 @@ public class StatisticsFragment extends Fragment {
         barChart = (BarChart) layout.findViewById(R.id.chart1);         // Month Chart
         lineChart =(LineChart) layout.findViewById(R.id.chart2);        // Weight chart
         pieChart = (PieChart) layout.findViewById(R.id.chart3);         // Food
-        barChart2 = (BarChart) layout.findViewById(R.id.chart4);        // Week chart
+        weekChart = (BarChart) layout.findViewById(R.id.chart4);        // Week chart
         //selectTime = (RadioGroup) layout.findViewById(R.id.TimeGroup);    // Time
         io = ((HomeActivity)getActivity()).io;
         userID = ((HomeActivity)getActivity()).userID;
@@ -89,6 +90,7 @@ public class StatisticsFragment extends Fragment {
         monthList.add("Jou");
 
         barEntriesMonths = new ArrayList<>();
+        ArrayList<BarEntry> barEntriesWeeks = new ArrayList<>();
 
         io.getUserFoodData(userID, new IODatabase.FirebaseCallback() {
             @Override
@@ -108,6 +110,8 @@ public class StatisticsFragment extends Fragment {
                     differentTypesList.set(2, differentTypesList.get(2) + foodList.get(i).plant);
                     differentTypesList.set(3, differentTypesList.get(3) + foodList.get(i).dairy);
 
+                    barEntriesWeeks.add(new BarEntry(foodList.get(i).total, i));
+
                 }
 
                 Float entry;
@@ -123,6 +127,13 @@ public class StatisticsFragment extends Fragment {
                 barChart.setData(theData);
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
+
+                BarDataSet weekDataSet = new BarDataSet(barEntriesWeeks, "Co2 kulutus kg");
+                BarData weekData = new BarData(monthList,weekDataSet);
+
+                weekChart.setData(weekData);
+                weekChart.notifyDataSetChanged();
+                weekChart.invalidate();
 
                 ArrayList pieEntry = new ArrayList();
                 pieEntry.add(new Entry(differentTypesList.get(0),0));
@@ -174,6 +185,13 @@ public class StatisticsFragment extends Fragment {
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
+
+        weekChart.setData(theData);
+        weekChart.setTouchEnabled(true);
+        weekChart.setDragEnabled(true);
+        weekChart.setScaleEnabled(true);
+
+
 
         ArrayList<Entry> weightEntries = new ArrayList<>();
         weightEntries.add(new Entry(56, 0));

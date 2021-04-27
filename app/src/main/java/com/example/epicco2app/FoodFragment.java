@@ -173,7 +173,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
 
     }
 
-    // Tests to see if inputs are correct for the API
+    // Tests to see if inputs are correct for the API and sets input as 0 if empty
     private boolean validateBeefInput() {
         if (textInputBeef.getEditText().getText().toString().equals("")){ doubleBeef = 0;
         } else { doubleBeef = Double.parseDouble(textInputBeef.getEditText().getText().toString()); }

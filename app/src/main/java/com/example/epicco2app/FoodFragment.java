@@ -2,6 +2,7 @@ package com.example.epicco2app;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,12 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +52,11 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
     private Button confirm_Button;
     private CheckBox checkBox;
 
+    APICaller apiCaller;
+    IODatabase io;
+    String userID;
+    FirebaseAuth mAuth;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,6 +82,12 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
         textInputEgg = v.findViewById(R.id.text_input_egg);
         textInputWinterSalad = v.findViewById(R.id.text_input_winterSalad);
         textInputRestaurant = v.findViewById(R.id.text_input_restaurant);
+
+        // Variables used with API and Firebase
+        mAuth = FirebaseAuth.getInstance();
+        io = IODatabase.getInstance();
+        apiCaller = APICaller.getInstance(getActivity().getApplicationContext());
+        userID = mAuth.getCurrentUser().getUid();
 
         //Confirm button
         confirm_Button = v.findViewById(R.id.confirm_button);
@@ -110,23 +124,43 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
 
                 // Arraylist with all parameters
                 ArrayList<String> params = new ArrayList<String>();
-                params.add(diet);
+                params.add("omnivore");
                 params.add(lowCarbon);
                 //Percentage of consumption compared to Finnish average, rounded and converted to string
-                params.add(String.valueOf(Math.round((doubleBeef / (400.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleFish / (600.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doublePork / (1000.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleDairy / (3800.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleCheese / (300.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleRice / (90.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleEgg / (3.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleWinterSalad / (1400.0 / 7.0)) * 100)));
-                params.add(String.valueOf(Math.round((doubleRestaurant / (71.0 / 30.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleBeef / (400.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleFish / (600.0)) * 100)));
+                params.add(String.valueOf(Math.round((doublePork / (1000.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleDairy / (3800.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleCheese / (300.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleRice / (90.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleEgg / (3.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleWinterSalad / (1400.0)) * 100)));
+                params.add(String.valueOf(Math.round((doubleRestaurant / (71.0)) * 100)));
 
                 for(int i = 0; i < params.size(); i++) {
                     System.out.print(params.get(i)+" ");
                 }
+
+                /*
+                Calling the API and saving the response to the Firebase database
+                Callback interface is used to transfer the data in async call.
+                 */
+                apiCaller.call(params, new APICaller.VolleyCallback() {
+                    // onSuccess method is called after the request is complete
+                    @Override
+                    public void onSuccess(JSONObject response) throws JSONException {
+                        FoodLogObject foodLogObject = null;
+                        foodLogObject = new FoodLogObject();
+                        foodLogObject.setFromJSON(response);
+                        io.addFoodToDB(userID, foodLogObject);
+                        Log.v("Async", "API call successful");
+                        Toast.makeText(FoodFragment.this.getContext(), "Kirjauksesi onnistui.", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
+
+
         });
 
         return v;

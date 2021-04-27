@@ -5,21 +5,24 @@ import java.util.Date;
 
 public class WeightLogObject {
 
-    Integer weight;
+    Float weight;
+    Float height;
+    Float bmi;
+
     DateAndTime logTime;
     public WeightLogObject(){
         Date time = Calendar.getInstance().getTime();
         this.logTime = new DateAndTime();
-        logTime.setDay(time.getDay());
+        logTime.setDay(time.getDate());
         logTime.setMonth(time.getMonth());
         logTime.setYear(time.getYear());
     }
 
-    public Integer getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
@@ -30,4 +33,21 @@ public class WeightLogObject {
     public void setLogTime(DateAndTime logTime) {
         this.logTime = logTime;
     }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public Float getBmi() {
+        return bmi;
+    }
+
+    public void setBmi(Float bmi) {
+        this.bmi = bmi;
+    }
+
 }

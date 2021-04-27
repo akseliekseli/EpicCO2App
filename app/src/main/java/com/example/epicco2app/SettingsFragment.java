@@ -23,8 +23,8 @@ public class SettingsFragment extends Fragment {
     private TextView bmiText,infoText;
     private EditText heigthIn, weigthIn;
     private Button button;
-
-
+    String userID;
+    IODatabase io;
 
     @Nullable
     @Override
@@ -35,6 +35,9 @@ public class SettingsFragment extends Fragment {
         bmiText  = (TextView) layout.findViewById(R.id.bmiOut);
         infoText = (TextView) layout.findViewById(R.id.textView2);
         button = (Button) layout.findViewById(R.id.button2);
+
+        userID = ((HomeActivity)getActivity()).userID;
+        io = ((HomeActivity)getActivity()).io;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,8 +69,13 @@ public class SettingsFragment extends Fragment {
             infoText.setText("Painoindeksin mukaan olet merkittävästi ylipainoinen.");
         }
 
+        // Add BMI, weight and height to database.
+        WeightLogObject logObject = new WeightLogObject();
+        logObject.setWeight(weight);
+        logObject.setHeight(height);
+        logObject.setBmi(bmi);
+        io.addWeightToDB(userID, logObject);
+
     }
-    public void logOut(){
-        FirebaseAuth.getInstance().signOut();
-    }
+
 }

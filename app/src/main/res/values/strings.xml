@@ -32,6 +32,8 @@
     <string name="paino">Paino</string>
     <string name="p_ivit">Päivitä</string>
     <string name="textview">TextView</string>
+    <string name="sed_t_koodaa">Sedät koodaa</string>
+    <string name="Käyttäjä" />
 
     <string-array name="diets">
         <item>Kaikkiruokainen</item>

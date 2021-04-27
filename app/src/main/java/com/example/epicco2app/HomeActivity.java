@@ -44,6 +44,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         userID = mAuth.getCurrentUser().getUid();
         // This is how you make a GET request for the API
+
+        // Implementing menu system
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); //Sets our own toolbar as actionbar
 
@@ -51,16 +53,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        //some android magic
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         userNameText = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
         userNameEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
-        //userNameText.setText(mAuth.getCurrentUser().getDisplayName());
         userNameEmail.setText(mAuth.getCurrentUser().getEmail());
+
+        //If for example the user closes the app and reopens it, this part won't run.
+        if (savedInstanceState == null) {
+            //Automatically opens food fragment when logged in
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FoodFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_food);
+        }
         
 
         /*
@@ -83,14 +91,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         */
-
-        //If for example the user closes the app and reopens it, this part won't run.
-        if (savedInstanceState == null) {
-            //Automatically opens food fragment when logged in
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FoodFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_food);
-        }
 
 
     }

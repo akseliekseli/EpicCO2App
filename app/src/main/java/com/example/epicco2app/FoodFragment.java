@@ -64,17 +64,21 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_food, container, false);
 
-        //Spinner
+        // Variables used with API and Firebase
+        mAuth = FirebaseAuth.getInstance();
+        io = IODatabase.getInstance();
+        apiCaller = APICaller.getInstance(getActivity().getApplicationContext());
+        userID = mAuth.getCurrentUser().getUid();
+
+        //Variables used in layout
         Spinner spinner = v.findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.diets, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        //CheckBox
         checkBox = v.findViewById(R.id.checkbox);
 
-        //Text inputs
         textInputBeef = v.findViewById(R.id.text_input_beef);
         textInputFish = v.findViewById(R.id.text_input_fish);
         textInputPork = v.findViewById(R.id.text_input_pork);
@@ -85,15 +89,8 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
         textInputWinterSalad = v.findViewById(R.id.text_input_winterSalad);
         textInputRestaurant = v.findViewById(R.id.text_input_restaurant);
 
-        // Variables used with API and Firebase
-        mAuth = FirebaseAuth.getInstance();
-        io = IODatabase.getInstance();
-        apiCaller = APICaller.getInstance(getActivity().getApplicationContext());
-        userID = mAuth.getCurrentUser().getUid();
-
         textView = v.findViewById(R.id.c02text);
 
-        //Confirm button
         confirm_Button = v.findViewById(R.id.confirm_button);
         confirm_Button.setOnClickListener(new OnClickListener() {
             @Override
@@ -124,10 +121,6 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                 params.add(String.valueOf(Math.round((doubleEgg / (3.0)) * 100)));
                 params.add(String.valueOf(Math.round((doubleWinterSalad / (1400.0)) * 100)));
                 params.add(String.valueOf(Math.round((doubleRestaurant * 4))));
-
-                for(int i = 0; i < params.size(); i++) {
-                    System.out.print(params.get(i)+" ");
-                }
 
                 /*
                 Calling the API and saving the response to the Firebase database
@@ -172,7 +165,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
         }
 
     }
-
+    // Spinner if othing selected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

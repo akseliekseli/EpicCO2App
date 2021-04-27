@@ -165,5 +165,13 @@
             android:id="@+id/confirm_button"
             android:focusableInTouchMode="false" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/c02text"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:textSize="32dp"/>
+
     </LinearLayout>
 </ScrollView>

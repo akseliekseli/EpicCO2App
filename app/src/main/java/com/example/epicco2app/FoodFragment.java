@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
     private double doubleRestaurant;
     private Button confirm_Button;
     private CheckBox checkBox;
+    private TextView textView;
 
     APICaller apiCaller;
     IODatabase io;
@@ -88,6 +90,8 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
         io = IODatabase.getInstance();
         apiCaller = APICaller.getInstance(getActivity().getApplicationContext());
         userID = mAuth.getCurrentUser().getUid();
+
+        textView = v.findViewById(R.id.c02text);
 
         //Confirm button
         confirm_Button = v.findViewById(R.id.confirm_button);
@@ -139,6 +143,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                         io.addFoodToDB(userID, foodLogObject);
                         Log.v("Async", "API call successful");
                         Toast.makeText(FoodFragment.this.getContext(), "Kirjauksesi onnistui.", Toast.LENGTH_SHORT).show();
+                        textView.setText("Tuotit näin paljon C02");
 
                     }
                 });

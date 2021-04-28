@@ -16,8 +16,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mitä näistä ruuista söit tällä viikolla?"
+            android:text="Viikottaisen ruoan hiilijalanjälki"
             android:textSize="32dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valitse perusruokavalio ja räätälöi sitä viikon aika syömäsi ruoan mukaan."
+            android:textSize="16dp"/>
 
         <Spinner
             android:id="@+id/spinner1"

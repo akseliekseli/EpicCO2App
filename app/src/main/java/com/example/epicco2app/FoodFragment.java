@@ -27,6 +27,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.valueOf;
+
 public class FoodFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private String selection;
@@ -135,8 +138,8 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                         foodLogObject.setFromJSON(response);
                         io.addFoodToDB(userID, foodLogObject);
                         Log.v("Async", "API call successful");
-                        Toast.makeText(FoodFragment.this.getContext(), "Kirjauksesi onnistui.", Toast.LENGTH_SHORT).show();
-                        textView.setText("Tuotit näin paljon C02");
+                        Toast.makeText(FoodFragment.this.getContext(), "Tiedot tilastoitu.", Toast.LENGTH_SHORT).show();
+                        textView.setText("Tuotit " + foodLogObject.getTotal()/52 + " kg hiilidioksidia");
 
                     }
                 });

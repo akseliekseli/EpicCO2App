@@ -151,6 +151,9 @@ public class StatisticsFragment extends Fragment {
                 ArrayList<String> weekDate = new ArrayList<>();
                 Integer m;
                 Integer j;
+                /*
+                Making the data entries for the charts
+                 */
                 for (int i=0; i<foodList.size(); i++) {
                     j = foodList.get(i).logTime.month;
                     m = monthTotalList.get(j) + foodList.get(i).total;
@@ -173,6 +176,9 @@ public class StatisticsFragment extends Fragment {
 
                 }
 
+                /*
+                Updating the data
+                 */
                 BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 tuotto kg");
                 BarData theData = new BarData(monthList,barDataSet);
 
@@ -209,7 +215,9 @@ public class StatisticsFragment extends Fragment {
             }
         });
     }
-
+    /*
+    This requests the data from Firebase and updates line chart
+     */
     public void updateWeightChart(){
         io.getUserWeight(userID, new IODatabase.WeightCallback() {
             @Override

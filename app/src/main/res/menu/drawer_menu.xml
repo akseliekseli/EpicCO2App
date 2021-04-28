@@ -8,7 +8,7 @@
         <item
             android:id="@+id/nav_food"
             android:icon="@drawable/ic_food"
-            android:title="Ruoan C02 laskuri" />
+            android:title="Ruoan CO2 laskuri" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_bmi"

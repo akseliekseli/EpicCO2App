@@ -139,7 +139,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                         io.addFoodToDB(userID, foodLogObject);
                         Log.v("Async", "API call successful");
                         Toast.makeText(FoodFragment.this.getContext(), "Tiedot tilastoitu.", Toast.LENGTH_SHORT).show();
-                        textView.setText("Tuotit " + foodLogObject.getTotal()/52 + " kg hiilidioksidia");
+                        textView.setText("Tuotit " + foodLogObject.getTotal() + " kg hiilidioksidia");
 
                     }
                 });

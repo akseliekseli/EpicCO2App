@@ -36,11 +36,5 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public void updateName(String name){
-        this.name=name;
-    }
-    public void updatePhone(String phone){
-        this.phone=phone;
-    }
+    
 }

@@ -27,7 +27,6 @@ All GET-requests are asynchronous and values are returned using callback interfa
 public class IODatabase {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
-    private User loaded_user;
 
     private static IODatabase io = new IODatabase();
 

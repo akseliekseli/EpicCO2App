@@ -97,7 +97,7 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths = new ArrayList<>();
         barEntriesWeeks = new ArrayList<>();
 
-        BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
+        BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 tuotto kg");
         BarData theData = new BarData(monthList,barDataSet);
         //BarData theData = new BarData(monthList,barDataSet);
         barChart.setData(theData);
@@ -118,7 +118,7 @@ public class StatisticsFragment extends Fragment {
         LineData lineData = new LineData(monthList, lineDataSet);
         lineChart.setData(lineData);
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
+        PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 tuotto ruoka-aineittain");
 
         ArrayList foodType  = new ArrayList();
         foodType.add("Liha");
@@ -173,14 +173,14 @@ public class StatisticsFragment extends Fragment {
 
                 }
 
-                BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
+                BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 tuotto kg");
                 BarData theData = new BarData(monthList,barDataSet);
 
                 barChart.setData(theData);
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
 
-                BarDataSet weekDataSet = new BarDataSet(barEntriesWeeks, "Co2 kulutus kg");
+                BarDataSet weekDataSet = new BarDataSet(barEntriesWeeks, "Co2 tuotto kg");
                 BarData weekData = new BarData(weekDate,weekDataSet);
 
                 weekChart.setData(weekData);
@@ -193,7 +193,7 @@ public class StatisticsFragment extends Fragment {
                 pieEntry.add(new Entry(differentTypesList.get(2),2));
                 pieEntry.add(new Entry(differentTypesList.get(3),3));
 
-                PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
+                PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 tuoton kokonaismäärä ruoka-aineittain");
 
                 ArrayList foodType  = new ArrayList();
                 foodType.add("Liha");

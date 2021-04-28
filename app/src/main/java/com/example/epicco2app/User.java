@@ -10,13 +10,9 @@ public class User {
 
 
 
-    public User (String name,String phone, String email){
-        this.email = email;
-        this.name = name;
-        this.phone = phone;
-
-
+    public User (){
     }
+
     public String getName(){
         return name;
     }
@@ -27,6 +23,18 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void updateName(String name){

@@ -108,6 +108,22 @@ public class IODatabase {
         });
     }
 
+    public void getUserInfo(String userID, final UserCallback callback){
+        rootNode.getReference("USERS").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user;
+                user = snapshot.getValue(User.class);
+                callback.onSuccess(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public interface FirebaseCallback {
         void onSuccess(ArrayList<FoodLogObject> foodList);
 
@@ -115,6 +131,10 @@ public class IODatabase {
 
     public interface WeightCallback{
         void onSuccess(ArrayList<WeightLogObject> weight);
+    }
+
+    public interface UserCallback{
+        void onSuccess(User userFromData);
     }
 
 }

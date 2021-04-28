@@ -86,7 +86,10 @@ public class SignInActivity extends AppCompatActivity {
                             /// Creating user node to database using Firebases's user ID as an ID
                             String new_user = mAuth.getCurrentUser().getUid();
                             String new_email = mAuth.getCurrentUser().getEmail();
-                            User n_user = new User(nam,pho,new_email);
+                            User n_user = new User();
+                            n_user.setName(nam);
+                            n_user.setEmail(email);
+                            n_user.setPhone(pho);
                             io.createUser(new_user,n_user);
                             startActivity(new Intent(SignInActivity.this, HomeActivity.class));
 

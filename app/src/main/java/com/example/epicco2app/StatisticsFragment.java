@@ -72,8 +72,11 @@ public class StatisticsFragment extends Fragment {
         pieEntry = new ArrayList();
         for (int i=0; i<12; i++){
             barEntriesMonths.add(new BarEntry(0f,i));
-            pieEntry.add(new Entry(0,i));
+
             weightEntries.add(new Entry(0,i));
+        }
+        for (int i=0; i<4; i++){
+            pieEntry.add(new Entry(0,i));
         }
 
 

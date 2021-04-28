@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth mAuth;
     TextView userNameText;
     TextView userNameEmail;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         io = IODatabase.getInstance();
 
         userID = mAuth.getCurrentUser().getUid();
-        // This is how you make a GET request for the API
+
 
         // Implementing menu system
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -45,15 +46,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        /*
+        This loads user's name and adds it to side panel.
+         */
+        io.getUserInfo(userID, new IODatabase.UserCallback() {
+            @Override
+            public void onSuccess(User userFromData) {
+                user = userFromData;
+                // Displays users email in drawer header
+                userNameEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
+                userNameEmail.setText(user.getName());
+            }
+        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Displays users email in drawer header
-        userNameEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
-        userNameEmail.setText(mAuth.getCurrentUser().getEmail());
+
 
         //If for example the user closes the app and reopens it, this part won't run.
         if (savedInstanceState == null) {

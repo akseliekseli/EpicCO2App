@@ -27,6 +27,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.valueOf;
+
 public class FoodFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private String selection;
@@ -107,11 +110,11 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                 }
 
 
-                // Arraylist with all parameters
+                // Creates an Arraylist and adds all paratemers
                 ArrayList<String> params = new ArrayList<String>();
                 params.add(diet);
                 params.add(lowCarbon);
-                //Percentage of consumption compared to Finnish average, rounded and converted to string
+                //Calvulates the percentage of consumption compared to Finnish average, rounds and converts to string
                 params.add(String.valueOf(Math.round((doubleBeef / (400.0)) * 100)));
                 params.add(String.valueOf(Math.round((doubleFish / (600.0)) * 100)));
                 params.add(String.valueOf(Math.round((doublePork / (1000.0)) * 100)));
@@ -135,8 +138,8 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
                         foodLogObject.setFromJSON(response);
                         io.addFoodToDB(userID, foodLogObject);
                         Log.v("Async", "API call successful");
-                        Toast.makeText(FoodFragment.this.getContext(), "Kirjauksesi onnistui.", Toast.LENGTH_SHORT).show();
-                        textView.setText("Tuotit näin paljon C02");
+                        Toast.makeText(FoodFragment.this.getContext(), "Tiedot tilastoitu.", Toast.LENGTH_SHORT).show();
+                        textView.setText("Tuotit " + foodLogObject.getTotal()/52 + " kg hiilidioksidia");
 
                     }
                 });
@@ -152,6 +155,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selection = parent.getItemAtPosition(position).toString();
+        // API wants parameters in english
         switch (selection){
             case "Kaikkiruokainen":
                 diet = "omnivore";
@@ -165,7 +169,7 @@ public class FoodFragment extends Fragment implements AdapterView.OnItemSelected
         }
 
     }
-    // Spinner if othing selected
+    // Spinner if nothing selected (added automatically)
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

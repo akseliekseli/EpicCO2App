@@ -20,7 +20,7 @@ public class FoodLogObject {
         this.logTime = new DateAndTime();
         logTime.setDay(time.getDate());
         logTime.setMonth(time.getMonth());
-        logTime.setYear(time.getYear());
+        logTime.setYear(time.getYear()+1900);
     }
 
     public void setFromJSON(JSONObject data) throws JSONException {

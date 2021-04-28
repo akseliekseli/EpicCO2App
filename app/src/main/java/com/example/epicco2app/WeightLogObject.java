@@ -15,7 +15,7 @@ public class WeightLogObject {
         this.logTime = new DateAndTime();
         logTime.setDay(time.getDate());
         logTime.setMonth(time.getMonth());
-        logTime.setYear(time.getYear());
+        logTime.setYear(time.getYear()+1900);
     }
 
     public Float getWeight() {

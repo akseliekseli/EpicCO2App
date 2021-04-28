@@ -92,90 +92,6 @@ public class StatisticsFragment extends Fragment {
         barEntriesMonths = new ArrayList<>();
         ArrayList<BarEntry> barEntriesWeeks = new ArrayList<>();
 
-        io.getUserFoodData(userID, new IODatabase.FirebaseCallback() {
-            @Override
-            public void onSuccess(ArrayList<FoodLogObject> foodList) {
-                Log.v("Async", "FoodData read successful");
-                ArrayList<Integer> differentTypesList = new ArrayList<Integer>(Collections.nCopies(4,0));
-                ArrayList<Integer> monthTotalList = new ArrayList<Integer>(Collections.nCopies(12, 0));
-                Integer m;
-                Integer j;
-                for (int i=0; i<foodList.size(); i++) {
-                    j = foodList.get(i).logTime.month;
-                    m = monthTotalList.get(j) + foodList.get(i).total;
-                    monthTotalList.set(j, m);
-
-                    differentTypesList.set(0, differentTypesList.get(0) + foodList.get(i).meat);
-                    differentTypesList.set(1, differentTypesList.get(1) + foodList.get(i).restaurant);
-                    differentTypesList.set(2, differentTypesList.get(2) + foodList.get(i).plant);
-                    differentTypesList.set(3, differentTypesList.get(3) + foodList.get(i).dairy);
-
-                    barEntriesWeeks.add(new BarEntry(foodList.get(i).total, i));
-
-                }
-
-                Float entry;
-                for (int i=0; i<monthTotalList.size(); i++){
-                    entry = (float) monthTotalList.get(i);
-                    barEntriesMonths.add(new BarEntry(entry,i));
-
-                }
-
-                BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
-                BarData theData = new BarData(monthList,barDataSet);
-
-                barChart.setData(theData);
-                barChart.notifyDataSetChanged();
-                barChart.invalidate();
-
-                BarDataSet weekDataSet = new BarDataSet(barEntriesWeeks, "Co2 kulutus kg");
-                BarData weekData = new BarData(monthList,weekDataSet);
-
-                weekChart.setData(weekData);
-                weekChart.notifyDataSetChanged();
-                weekChart.invalidate();
-
-                ArrayList pieEntry = new ArrayList();
-                pieEntry.add(new Entry(differentTypesList.get(0),0));
-                pieEntry.add(new Entry(differentTypesList.get(1),0));
-                pieEntry.add(new Entry(differentTypesList.get(2),0));
-                pieEntry.add(new Entry(differentTypesList.get(3),0));
-
-                PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
-
-                ArrayList foodType  = new ArrayList();
-                foodType.add("Liha");
-                foodType.add("Ravintola");
-                foodType.add("Kasvikset");
-                foodType.add("Maitotuotteet");
-                PieData pieData = new PieData(foodType,pieDataSet);
-                pieChart.setData(pieData);
-                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieChart.notifyDataSetChanged();
-                pieChart.invalidate();
-
-            }
-        });
-
-        io.getUserWeight(userID, new IODatabase.WeightCallback() {
-            @Override
-            public void onSuccess(ArrayList<WeightLogObject> weightLogObjects) {
-                ArrayList<Integer> weights = new ArrayList<Integer>();
-                ArrayList<Entry> weightEntries = new ArrayList<>();
-                for (int i=0; i<weightLogObjects.size(); i++){
-                    weightEntries.add(new Entry(weightLogObjects.get(i).weight, i));
-                }
-
-                LineDataSet weightDataSet = new LineDataSet(weightEntries,"Paino");
-                LineData lineData = new LineData(monthList, weightDataSet);
-                lineChart.setData(lineData);
-                lineChart.notifyDataSetChanged();
-                lineChart.invalidate();
-
-            }
-        });
-
-
         BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
         BarData theData = new BarData(monthList,barDataSet);
         //BarData theData = new BarData(monthList,barDataSet);
@@ -220,6 +136,96 @@ public class StatisticsFragment extends Fragment {
         PieData pieData = new PieData(foodType,pieDataSet);
         pieChart.setData(pieData);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        io.getUserFoodData(userID, new IODatabase.FirebaseCallback() {
+            @Override
+            public void onSuccess(ArrayList<FoodLogObject> foodList) {
+                Log.v("Async", "FoodData read successful");
+                ArrayList<Integer> differentTypesList = new ArrayList<Integer>(Collections.nCopies(4,0));
+                ArrayList<Integer> monthTotalList = new ArrayList<Integer>(Collections.nCopies(12, 0));
+                ArrayList<String> weekDate = new ArrayList<>();
+                Integer m;
+                Integer j;
+                for (int i=0; i<foodList.size(); i++) {
+                    j = foodList.get(i).logTime.month;
+                    m = monthTotalList.get(j) + foodList.get(i).total;
+                    monthTotalList.set(j, m);
+
+                    differentTypesList.set(0, differentTypesList.get(0) + foodList.get(i).meat);
+                    differentTypesList.set(1, differentTypesList.get(1) + foodList.get(i).restaurant);
+                    differentTypesList.set(2, differentTypesList.get(2) + foodList.get(i).plant);
+                    differentTypesList.set(3, differentTypesList.get(3) + foodList.get(i).dairy);
+
+                    barEntriesWeeks.add(new BarEntry(foodList.get(i).total, i));
+                    weekDate.add(foodList.get(i).logTime.day+"."+foodList.get(i).logTime.month+"."+foodList.get(i).logTime.year);
+
+                }
+
+                Float entry;
+                for (int i=0; i<monthTotalList.size(); i++){
+                    entry = (float) monthTotalList.get(i);
+                    barEntriesMonths.add(new BarEntry(entry,i));
+
+                }
+
+                BarDataSet barDataSet = new BarDataSet(barEntriesMonths, "Co2 kulutus kg");
+                BarData theData = new BarData(monthList,barDataSet);
+
+                barChart.setData(theData);
+                barChart.notifyDataSetChanged();
+                barChart.invalidate();
+
+                BarDataSet weekDataSet = new BarDataSet(barEntriesWeeks, "Co2 kulutus kg");
+                BarData weekData = new BarData(weekDate,weekDataSet);
+
+                weekChart.setData(weekData);
+                weekChart.notifyDataSetChanged();
+                weekChart.invalidate();
+
+                ArrayList pieEntry = new ArrayList();
+                pieEntry.add(new Entry(differentTypesList.get(0),0));
+                pieEntry.add(new Entry(differentTypesList.get(1),0));
+                pieEntry.add(new Entry(differentTypesList.get(2),0));
+                pieEntry.add(new Entry(differentTypesList.get(3),0));
+
+                PieDataSet pieDataSet = new PieDataSet(pieEntry,"CO2 kulutus ruoka-aineittain");
+
+                ArrayList foodType  = new ArrayList();
+                foodType.add("Liha");
+                foodType.add("Ravintola");
+                foodType.add("Kasvikset");
+                foodType.add("Maitotuotteet");
+                PieData pieData = new PieData(foodType,pieDataSet);
+                pieChart.setData(pieData);
+                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieChart.notifyDataSetChanged();
+                pieChart.invalidate();
+
+            }
+        });
+
+        io.getUserWeight(userID, new IODatabase.WeightCallback() {
+            @Override
+            public void onSuccess(ArrayList<WeightLogObject> weightLogObjects) {
+                ArrayList<Integer> weights = new ArrayList<Integer>();
+                ArrayList<Entry> weightEntries = new ArrayList<>();
+                ArrayList<String> weightDate = new ArrayList<>();
+                for (int i=0; i<weightLogObjects.size(); i++){
+                    weightEntries.add(new Entry(weightLogObjects.get(i).weight, i));
+                    weightDate.add(weightLogObjects.get(i).logTime.day+"."+weightLogObjects.get(i).logTime.month+"."+weightLogObjects.get(i).logTime.year);
+
+                }
+
+                LineDataSet weightDataSet = new LineDataSet(weightEntries,"Paino");
+                LineData lineData = new LineData(weightDate, weightDataSet);
+                lineChart.setData(lineData);
+                lineChart.notifyDataSetChanged();
+                lineChart.invalidate();
+
+            }
+        });
+
+
 
         return layout;
     }

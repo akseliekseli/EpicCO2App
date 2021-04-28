@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        userNameText = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderName);
+        // Displays users email in drawer header
         userNameEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeaderEmail);
         userNameEmail.setText(mAuth.getCurrentUser().getEmail());
 

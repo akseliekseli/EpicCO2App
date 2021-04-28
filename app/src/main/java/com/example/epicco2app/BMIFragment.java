@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -29,7 +27,7 @@ public class BMIFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_settings, container, false);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_bmi, container, false);
         heigthIn = (TextInputLayout) layout.findViewById(R.id.heigthIn);
         weigthIn = (TextInputLayout) layout.findViewById(R.id.weigthIn);
         bmiText  = (TextView) layout.findViewById(R.id.bmiOut);

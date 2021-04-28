@@ -2,6 +2,9 @@ package com.example.epicco2app;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+/*
+The user's information is stored in this class.
+ */
 public class User {
     private String name, phone, email;
 

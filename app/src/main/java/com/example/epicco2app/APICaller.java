@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/*
+This class handles GET-requests from the Ilmastodietti API.
+
+
+ */
 public class APICaller {
 
     public static final String QUERY_FOR_FOOD_CALC = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/FoodCalculator";
@@ -46,6 +52,7 @@ public class APICaller {
 
     /*
     This method is used for GET calling Ilmastodietti food calculator API
+    The request is asynchronous and it returns the data using callback interface.
      */
     public void call(ArrayList<String> params, final VolleyCallback callback) {
         String url = QUERY_FOR_FOOD_CALC + "?query.diet="+params.get(0)

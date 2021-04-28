@@ -62,30 +62,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     new FoodFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_food);
         }
-        
-
-        /*
-        WeightLogObject weightLogObject = new WeightLogObject();
-        weightLogObject.setWeight(80);
-        io.addWeightToDB(userID, weightLogObject);
-        // Not quite working
-        io.getUserFoodData(userID, new IODatabase.FirebaseCallback() {
-            @Override
-            public void onSuccess(ArrayList<FoodLogObject> foodList) {
-                Log.v("Async", "FoodData read successful");
-
-            }
-        });
-
-        io.getUserWeight(userID, new IODatabase.WeightCallback() {
-            @Override
-            public void onSuccess(ArrayList<WeightLogObject> weight) {
-                Log.v("Async", "WeightData read successful");
-            }
-        });
-        */
-
-
     }
 
     @Override
@@ -114,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    // If user presses back button and drawer is open, drawer will close
+    // If user presses back button when drawer is open, drawer will close
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {

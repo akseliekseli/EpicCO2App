@@ -44,7 +44,7 @@ public class StatisticsFragment extends Fragment {
     RadioGroup selectTime;
     IODatabase io;
     String userID;
-    FirebaseAuth mAuth;
+
 
     @Nullable
     @Override

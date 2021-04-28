@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Enter email and password, please", Toast.LENGTH_SHORT).show();
 
             } else if (!email.isEmpty() && !pwd.isEmpty()) {
+
                 mAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

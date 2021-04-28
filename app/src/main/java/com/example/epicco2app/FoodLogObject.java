@@ -25,11 +25,11 @@ public class FoodLogObject {
 
     public void setFromJSON(JSONObject data) throws JSONException {
 
-        this.dairy = (int) data.getDouble("Dairy");
-        this.meat = (int) data.getDouble("Meat");
-        this.plant = (int) data.getDouble("Plant");
-        this.restaurant = (int) data.getDouble("Restaurant");
-        this.total = (int) data.getDouble("Total");
+        this.dairy = (int) data.getDouble("Dairy")/52;
+        this.meat = (int) data.getDouble("Meat")/52;
+        this.plant = (int) data.getDouble("Plant")/52;
+        this.restaurant = (int) data.getDouble("Restaurant")/52;
+        this.total = (int) data.getDouble("Total")/52;
     }
 
     public void printTime() {

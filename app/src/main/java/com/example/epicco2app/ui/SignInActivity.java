@@ -19,6 +19,9 @@ import com.example.epicco2app.R;
 import com.example.epicco2app.User;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class SignInActivity extends AppCompatActivity {
     EditText emailId, password, nameT, phoneT;
@@ -63,11 +66,17 @@ public class SignInActivity extends AppCompatActivity {
 
             }
             else if(!email.isEmpty() && !pwd.isEmpty()) {
-                // TÄHÄN SALASANASETIT
-                if(!pho.isEmpty() && !nam.isEmpty()){
+                Pattern pattern;
+                Matcher matcher;
+                pattern = Pattern.compile("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})");
+                matcher = pattern.matcher(pwd);
+                if (!matcher.matches()) {
+                    Toast.makeText(SignInActivity.this, "Salasanan pitää olla vähintään 12 merkkiä pitkä ja sisältää yhden numeron, ison ja pienen kirjaimen sekä yhden erikoismerkin", Toast.LENGTH_SHORT).show();
+                }
+                else if(!pho.isEmpty() && !nam.isEmpty()){
                     mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, task -> {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignInActivity.this, "SignIn Unsuccesful, please try again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this, "SignIn Unsuccesful, please try again.", Toast.LENGTH_LONG).show();
                         } else {
 
                             /// Creating user node to database using Firebases's user ID as an ID

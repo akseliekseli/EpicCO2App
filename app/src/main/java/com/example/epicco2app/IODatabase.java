@@ -17,7 +17,13 @@ import org.json.JSONObject;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+/*
+This class handles all writing and reading from the Firebase database. It is made using the singleton
+principle.
 
+The class has methods for reading and writing food and weight data.
+All GET-requests are asynchronous and values are returned using callback interfaces.
+ */
 public class IODatabase {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -50,6 +56,10 @@ public class IODatabase {
 
         Task<DataSnapshot> data = null;
         rootNode.getReference("USERS").child(userID).child("FOODLOGS").addListenerForSingleValueEvent(new ValueEventListener() {
+            /*
+            This method is called once and it returns the users data as a DataSnapshot
+            The data is then parsed into FoodLogObjects and returned with callback.
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.v("Async", "OnDataChange");
@@ -69,7 +79,7 @@ public class IODatabase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.v("Async", "Error occurred reading the data");
             }
         });
 
@@ -93,7 +103,7 @@ public class IODatabase {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.v("Async", "Error occurred reading the data");
             }
         });
     }

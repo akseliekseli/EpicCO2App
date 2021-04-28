@@ -39,25 +39,28 @@ public class LoginActivity extends AppCompatActivity {
         mAuthListener = firebaseAuth -> {
             FirebaseUser mUser = mAuth.getCurrentUser();
             if (mUser != null) {
-                Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Olet kirjautunut sisään", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(i);
             } else {
-                Toast.makeText(LoginActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Kirjaudu sisään", Toast.LENGTH_SHORT).show();
             }
         };
-
+        /*
+        After the login button is clicked, the app checks if the password and email are provided.
+        After that the Firebase authenticator checks if the user information is valid and logs the user in.
+         */
         btnLogin.setOnClickListener(v -> {
             String email = emailId.getText().toString();
             String pwd = password.getText().toString();
             if (email.isEmpty()) {
-                emailId.setError("Enter email, please");
+                emailId.setError("Syötä sähköposti, kiitos");
                 emailId.requestFocus();
             } else if (pwd.isEmpty()) {
-                password.setError("Enter password, please");
+                password.setError("Syötä salasana, kitos");
                 password.requestFocus();
             } else if (email.isEmpty() && pwd.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Enter email and password, please", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Syötä sähköposti ja salasana, kiitos", Toast.LENGTH_SHORT).show();
 
             } else if (!email.isEmpty() && !pwd.isEmpty()) {
 
@@ -65,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Login Failed, please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Kirjautuminen epäonnistui, yritä uudelleen", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent toHome = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(toHome);
@@ -73,9 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                Toast.makeText(LoginActivity.this, "An error ocurred", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Tapahtui virhe, yritä uudelleen", Toast.LENGTH_SHORT).show();
             }
         });
+        // This listener changes the activity from login to sign in, if the text button is pressed.
         tvLogin.setOnClickListener(v -> {
             Intent i = new Intent(LoginActivity.this, SignInActivity.class);
             startActivity(i);

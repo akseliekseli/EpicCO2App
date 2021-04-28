@@ -7,6 +7,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+/*
+This class is used to hold user food data.
+
+The class has get and set methods, which are required when using Firebase.
+ */
 public class FoodLogObject {
 
     Integer dairy;
@@ -15,6 +20,9 @@ public class FoodLogObject {
     Integer restaurant;
     Integer total;
     DateAndTime logTime;
+    /*
+    Creating the object and getting time.
+     */
     public FoodLogObject(){
         Date time = Calendar.getInstance().getTime();
         this.logTime = new DateAndTime();
@@ -23,6 +31,11 @@ public class FoodLogObject {
         logTime.setYear(time.getYear()+1900);
     }
 
+    /*
+    Parsing the API response JSONObject to FoodLogObject.
+    Returns are divided with 52, because the API returns expected
+    yearly emissions average and we use weekly in our app.
+     */
     public void setFromJSON(JSONObject data) throws JSONException {
 
         this.dairy = (int) data.getDouble("Dairy")/52;

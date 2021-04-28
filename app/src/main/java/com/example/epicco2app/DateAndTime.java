@@ -1,5 +1,8 @@
 package com.example.epicco2app;
 
+/*
+This class holds log dates.
+ */
 public class DateAndTime {
     int day;
     int month;

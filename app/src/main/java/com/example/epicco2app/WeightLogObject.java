@@ -3,13 +3,20 @@ package com.example.epicco2app;
 import java.util.Calendar;
 import java.util.Date;
 
+/*
+This class is used to hold user weight data.
+
+The class has get and set methods, which are required when using Firebase.
+ */
 public class WeightLogObject {
 
     Float weight;
     Float height;
     Float bmi;
-
     DateAndTime logTime;
+    /*
+    Getting current time from Calendar and then parsing it to own DateAndTime class.
+     */
     public WeightLogObject(){
         Date time = Calendar.getInstance().getTime();
         this.logTime = new DateAndTime();
